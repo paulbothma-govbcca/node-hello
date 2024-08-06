@@ -16,6 +16,7 @@ import { fileURLToPath } from 'url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const appPort = process.env.LSA_APPS_ADMIN_PORT || 3000;
+const username = process.env.USER;
 
 /**
  * Frontend application (Vue) server
@@ -33,6 +34,7 @@ app.listen(appPort, () => {
   console.log(`============================================`);
   console.log(`App running on port ${appPort}.`);
   console.log('\t- Serving build at ', path.join(__dirname, 'dist'));
+  console.log('\tUser is ' +username);
   
   console.log(`============================================`);
 });
