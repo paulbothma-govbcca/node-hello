@@ -1,12 +1,41 @@
-const http = require('http');
-const port = process.env.PORT || 3000;
+/*!
+ * Long Service Awards admin web application
+ * File: app.js
+ * Copyright(c) 2022 BC Gov
+ * MIT Licensed
+ */
 
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  const msg = 'Hello Node!!!\nMy name is Frankie.\nWhat is your name?\n'
-  res.end(msg);
+'use strict';
+
+import express from 'express';
+import path from 'path';
+
+// replace __dirname for E6
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+const appPort = process.env.LSA_APPS_ADMIN_PORT || 3000;
+
+/**
+ * Frontend application (Vue) server
+ */
+
+const app = express();
+app.disable('x-powered-by');
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// initialize frontend routes
+app.use('/', express.static(path.join(__dirname, 'dist')));
+// Run API server
+app.listen(appPort, () => {
+  console.log(`============================================`);
+  console.log(`App running on port ${appPort}.`);
+  console.log('\t- Serving build at ', path.join(__dirname, 'dist'));
+  
+  console.log(`============================================`);
 });
 
-server.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}/`);
-});
+// expose application
+export default app;
