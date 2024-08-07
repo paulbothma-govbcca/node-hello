@@ -7,13 +7,13 @@
 
 'use strict';
 
-import express from 'express';
-import path from 'path';
+const express = require("express");
+const path = require("path");
+
+const db = require("./db");
 
 // replace __dirname for E6
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
-const __dirname = dirname(fileURLToPath(import.meta.url));
+//const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const appPort = process.env.LSA_APPS_ADMIN_PORT || 3000;
 const username = process.env.USER;
@@ -37,7 +37,11 @@ app.listen(appPort, () => {
   console.log('\tUser is ' +username);
   
   console.log(`============================================`);
+
+  db.test();
 });
 
+
+
 // expose application
-export default app;
+//export default app;
